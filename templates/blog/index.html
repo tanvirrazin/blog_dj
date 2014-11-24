@@ -1,0 +1,20 @@
+{% extends 'blog/layout.html' %}
+
+
+{% block title %}
+    Blog | Home
+{% endblock %}
+
+
+{% block content %}
+    {% for type in article_types %}
+    <div>
+        <h2 style="color:green">{{ type.name }}</h2>
+        {% for article in type.articles %}
+        <p><a href="/blog/view/{{ article.id }}">{{ article.title }}</a></p>
+        &nbsp;&nbsp;--{{ article.user.username }}
+        <p>{{ article.body }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %}
+{% endblock %}

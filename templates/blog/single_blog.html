@@ -1,0 +1,24 @@
+{% extends 'blog/layout.html' %}
+
+
+{% block title %}
+    Blog | {{ article.title }}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ article.title }}</h2>
+    &nbsp;&nbsp;--{{ article.user.username }}
+    <p>{{ article.body }}</p>
+    <p><a href="/blog/like/{{ article.id }}">Like</a> {{ article.likes.count }}</p>
+
+    {% for comment in article.comments %}
+    <p><span class="comment-author">{{ comment.user.username }}</span> said -- {{ comment.body }}</p>
+    {% endfor %}
+    <p>
+        <form action="/blog/create-comment/{{ article.id }}" method="post" >
+            {% csrf_token %}
+            {{ comment_form }}
+            <input type="submit" name="submit" value="Comment" />
+        </form>
+    </p>
+{% endblock %}
